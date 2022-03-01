@@ -1,0 +1,117 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+  <h1>Character Detail Page</h1>
+    <a href="{% url 'light_novel:edit_all' item='char' pk=character.pk %}">Edit</a>
+    <div class="container">
+      <table class='tt'>
+      <tr>
+        <td class='bold'>Name: </td>
+        <td>{{ character.name }}</td>
+        <td class='bold'>Gender: </td>
+        <td>{{ character.gender }}</td>
+        <td class='bold'>Element: </td>
+        <td>{{ character.element }}</td>
+        <td class='bold'>Element Description: </td>
+        <td>{{ character.element_description }}</td>
+        <td class='bold'>Height: </td>
+        <td>{{ character.height }}</td>
+
+      </tr>
+      <tr>
+        <td class='bold'>Hair Colour: </td>
+        <td>{{ character.hair }}</td>
+        <td class='bold'>Hair Length:</td>
+        <td>{{ character.hair_length }}</td>
+        <td class='bold'>Eye Colour:</td>
+        <td>{{ character.eye_colour }}</td>
+        <td class='bold'>Date of Birth:</td>
+        <td>{{ character.date_of_birth }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>Place of Birth:</td>
+        <td>{{ character.place_of_birth }}</td>
+        <td class='bold'>Main/Side:</td>
+        <td>{{ character.main_side }}</td>
+        <td class='bold'>Intro/Extro:</td>
+        <td>{{ character.intro_extro }}</td>
+        <td class='bold'>Superiority Complex:</td>
+        <td>{{ character.superiority_complex }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>Appearance:</td>
+        <td>{{ character.appearance }}</td>
+        <td class='bold'>outfit:</td>
+        <td>{{ character.outfit }}</td>
+        <td class='bold'>skin:</td>
+        <td>{{ character.skin }}</td>
+        <td class='bold'>Opti/Pesi:</td>
+        <td>{{ character.opti_pesi }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>Strongest Trait:</td>
+        <td>{{ character.strongest_trait }}</td>
+        <td class='bold'>Weakest Trait:</td>
+        <td>{{ character.weakest_trait }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>Way To Display Affection:</td>
+        <td>{{ character.way_to_display_affection }}</td>
+        <td class='bold'>Greatest Fear:</td>
+        <td>{{ character.greatest_fear }}</td>
+        <td class='bold'>Philosophy Of Life:</td>
+        <td>{{ character.philosophy_of_life }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>goal:</td>
+        <td>{{ character.goal }}</td>
+        <td class='bold'>kids:</td>
+        <td>{{ character.kids }}</td>
+        <td class='bold'>siblings:</td>
+        <td>{{ character.siblings }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>best_friend:</td>
+        <td>{{ character.best_friend }}</td>
+        <td class='bold'>likes:</td>
+        <td>{{ character.likes }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>Best Childhood Memory:</td>
+        <td>{{ character.best_childhood_memory }}</td>
+        <td class='bold'>Worst Childhood Memory:</td>
+        <td>{{ character.worst_childhood_memory }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>Past Action Proud Of:</td>
+        <td>{{ character.past_action_proud_of }}</td>
+        <td class='bold'>Past Action Ashamed Of:</td>
+        <td>{{ character.past_action_ashamed_of }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>saved_by:</td>
+        <td>{{ character.saved_by }}</td>
+        <td class='bold'>raised:</td>
+        <td>{{ character.raised }}</td>
+        <td class='bold'>finance_as_child:</td>
+        <td>{{ character.finance_as_child }}</td>
+        <td class='bold'>relationship_status:</td>
+        <td>{{ character.relationship_status }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>Crushed With Disappointment:</td>
+        <td>{{ character.crushed_with_disappointment }}</td>
+        <td class='bold'>Weapon/Choice:</td>
+        <td>{{ character.weapon_or_choice }}</td>
+        <td class='bold'>Despised One:</td>
+        <td>{{ character.despised_one }}</td>
+      </tr>
+      <tr>
+        <td class='bold'>comedy_trait:</td>
+        <td>{{ character.comedy_trait }}</td>
+        <td class='bold'>peaceful_place:</td>
+        <td>{{ character.peaceful_place }}</td>
+      </tr>
+    </table>
+  </div>
+
+{% endblock %}

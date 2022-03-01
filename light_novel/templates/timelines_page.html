@@ -1,0 +1,27 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+  <h1>Timelines Page</h1>
+  <p>{{ note }}</p>
+  <form name="SearchForm" method="GET" action="{% url 'light_novel:search' item='timeline' %}">
+    <input type="text" name="searchFor" placeholder="Search" />
+    <input type="submit" name="search" value="Search">
+  </form>
+  <a href='{% url "light_novel:timeline_add" %}'>Add Timeline Event</a><br><br>
+
+  {% if tlines %}
+   {% for i in tlines %}
+   <a href='{% url "light_novel:timeline_detail" pk=i.pk %}'>{{ i.event }}</a>
+   <a href="{% url 'light_novel:delete' item='timeline' pk=i.pk %}">Delete</a>
+   <br>
+   {% endfor %}
+  {% endif %}
+
+  {% if timelines %}
+    {% for timeline in timelines %}
+      <a href='{% url "light_novel:timeline_detail" pk=timeline.pk %}'>{{ timeline.event }}</a>
+      <a href="{% url 'light_novel:delete' item='timeline' pk=timeline.pk %}">Delete</a><br>
+    {% endfor %}
+  {% else %}
+    <p>Nothing here.</p>
+  {% endif %}
+{% endblock %}

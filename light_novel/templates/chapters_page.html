@@ -1,0 +1,29 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+  <h1>Chapters Page</h1>
+
+  <p>{{ note }}</p>
+  <form name="SearchForm" method="GET" action="{% url 'light_novel:search' item='chapter' %}">
+    <input type="text" name="searchFor" placeholder="Search" />
+    <input type="submit" name="search" value="Search">
+  </form>
+  <a href='{% url "light_novel:chapter_add" %}'>Add Chapter</a><br><br>
+
+  {% if chps %}
+   {% for i in chps %}
+   <a href='{% url "light_novel:chapter_detail" pk=i.pk %}'>{{ i.name }}</a>
+   <a href="{% url 'light_novel:delete' item='chapter' pk=i.pk %}">Delete</a>
+   <br>
+   {% endfor %}
+  {% endif %}
+
+  {% if chapters %}
+    {% for chapter in chapters %}
+      <a href='{% url "light_novel:chapter_detail" pk=chapter.pk %}''>{{ chapter.name }}</a>
+      <a href="{% url 'light_novel:delete' item='chapter' pk=chapter.pk %}">Delete</a>
+      <br>
+    {% endfor %}
+  {% else %}
+    <p>nothing here.</p>
+  {% endif %}
+{% endblock %}

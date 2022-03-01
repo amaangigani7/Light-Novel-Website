@@ -1,0 +1,27 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+  <h1>Sights Page</h1>
+  <p>{{ note }}</p>
+  <form name="SearchForm" method="GET" action="{% url 'light_novel:search' item='sight' %}">
+    <input type="text" name="searchFor" placeholder="Search" />
+    <input type="submit" name="search" value="Search">
+  </form>
+  <a href='{% url "light_novel:sight_add" %}'>Add Sight</a><br><br>
+
+  {% if sghts %}
+   {% for i in sghts %}
+   <a href='{% url "light_novel:sight_detail" pk=i.pk %}'>{{ i.name }}</a>
+   <a href="{% url 'light_novel:delete' item='sight' pk=i.pk %}">Delete</a>
+   <br>
+   {% endfor %}
+  {% endif %}
+
+  {% if sights %}
+    {% for sight in sights %}
+      <a href='{% url "light_novel:sight_detail" pk=sight.pk %}'>{{ sight.name }}</a>
+      <a href="{% url 'light_novel:delete' item='sight' pk=sight.pk %}">Delete</a><br>
+    {% endfor %}
+  {% else %}
+    <p>Nothing here.</p>
+  {% endif %}
+{% endblock %}

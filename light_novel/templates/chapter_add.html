@@ -1,0 +1,14 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+  <div class="">
+    <h1>Chapter Add</h1>
+    <form class="" method="post">
+      {% csrf_token %}
+      <table>
+        {{ form|crispy }}
+      </table>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+{% endblock %}

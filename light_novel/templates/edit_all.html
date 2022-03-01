@@ -1,0 +1,37 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% if char %}
+  <h1>Edit Character</h1>
+{% endif %}
+
+{% if move %}
+  <h1>Edit Move</h1>
+{% endif %}
+
+{% if sight %}
+  <h1>Edit Sight</h1>
+{% endif %}
+
+{% if outfit %}
+  <h1>Edit Outfit</h1>
+{% endif %}
+
+{% if chapter %}
+  <h1>Edit Chapter</h1>
+{% endif %}
+
+{% if timeline %}
+  <h1>Edit Timeline</h1>
+{% endif %}
+
+<p>{{ note }}</p>
+<form method="post">
+  {% csrf_token %}
+  <table>
+    {{ form|crispy }}
+  </table>
+  <input type="submit" name="edit details" value="Save Changes">
+</form>
+
+{% endblock %}

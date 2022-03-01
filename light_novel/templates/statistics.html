@@ -1,0 +1,10 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+{% load static %}
+    <h3>Gender PieChart</h3>
+    <img src="{% static 'gender_piechart.png' %}" alt="gender image">
+    <h3>Elements PieChart</h3>
+    <img src="{% static 'elements_piechart.png' %}" alt="elements image">
+    <!-- <img src="./media/sale_purchase_piechart.png" /> -->
+
+{% endblock %}

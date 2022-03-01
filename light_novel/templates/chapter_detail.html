@@ -1,0 +1,7 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+  <h1>Chapter Detail Page</h1>
+    <a href="{% url 'light_novel:edit_all' item='chapter' pk=chapter.pk %}">Edit</a>
+    <p>{{ chapter.name }}</p>
+    <p>{{ chapter.content }}</p>
+{% endblock %}

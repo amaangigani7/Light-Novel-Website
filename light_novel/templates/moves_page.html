@@ -1,0 +1,29 @@
+{% extends "F:\udemy.django\lightnovel\light_novel\templates\base.html" %}
+{% block content %}
+  <h1>Moves Page</h1>
+  <p>{{ note }}</p>
+
+  <form name="SearchForm" method="GET" action="{% url 'light_novel:search' item='move' %}">
+    <input type="text" name="searchFor" placeholder="Search" />
+    <input type="submit" name="search" value="Search">
+  </form>
+
+  <a href='{% url "light_novel:move_add" %}'>Add Move</a><br><br>
+
+  {% if movs %}
+   {% for i in movs %}
+   <a href='{% url "light_novel:move_detail" pk=i.pk %}'>{{ i.owner }} - {{ i.name }}</a>
+   <a href="{% url 'light_novel:delete' item='move' pk=i.pk %}">Delete</a>
+   <br>
+   {% endfor %}
+  {% endif %}
+
+  {% if moves %}
+    {% for move in moves %}
+      <a href='{% url "light_novel:move_detail" pk=move.pk %}'>{{ move.owner }} - {{ move.name }}</a>
+      <a href="{% url 'light_novel:delete' item='move' pk=move.pk %}">Delete</a><br>
+    {% endfor %}
+  {% else %}
+    <p>nothing here.</p>
+  {% endif %}
+{% endblock %}
