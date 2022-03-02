@@ -1,0 +1,29 @@
+{% extends "light_novel/templates/base.html" %}
+{% block content %}
+  <h1>Scratch Pads Page</h1>
+
+  <p>{{ note }}</p>
+  <form name="SearchForm" method="GET" action="{% url 'light_novel:search' item='scratchpad' %}">
+    <input type="text" name="searchFor" placeholder="Search" />
+    <input type="submit" name="search" value="Search">
+  </form>
+  <a href='{% url "light_novel:scratchpad_add" %}'>Add Scratch Pad</a><br><br>
+
+  {% if spads %}
+   {% for i in spads %}
+   <a href='{% url "light_novel:scratchpad_detail" pk=i.pk %}'>{{ i.title }}</a>
+   <a href="{% url 'light_novel:delete' item='scratchpad' pk=i.pk %}">Delete</a>
+   <br>
+   {% endfor %}
+  {% endif %}
+
+  {% if scratchpads %}
+    {% for s in scratchpads %}
+      <a href='{% url "light_novel:scratchpad_detail" pk=s.pk %}''>{{ s.title }}</a>
+      <a href="{% url 'light_novel:delete' item='scratchpad' pk=s.pk %}">Delete</a>
+      <br>
+    {% endfor %}
+  {% else %}
+    <p>nothing here.</p>
+  {% endif %}
+{% endblock %}

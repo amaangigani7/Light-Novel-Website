@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponseRedirect
-from .models import Character, Move, Chapter, Outfit, Sight, Timeline
-from .forms import CharacterAddForm, MoveAddForm, ChapterAddForm, OutfitAddForm, SightAddForm, TimelineAddForm
+from .models import Character, Move, Chapter, Outfit, Sight, Timeline, ScratchPad
+from .forms import CharacterAddForm, MoveAddForm, ChapterAddForm, OutfitAddForm, SightAddForm, TimelineAddForm, ScratchPadAddForm
 from django.views.generic import CreateView, ListView, TemplateView
 # from .filters import CharacterFilter
 from django.contrib.auth import login, logout
@@ -90,6 +90,12 @@ class TimelineAdd(LoginRequiredMixin, CreateView):
     form_class = TimelineAddForm
     model = Timeline
 
+class ScratchPadAdd(LoginRequiredMixin, CreateView):
+    template_name = 'scratchpad_add.html'
+    redirect_field_name = 'scratchpad_add.html'
+    form_class = ScratchPadAddForm
+    model = ScratchPad
+
 # class CharacterView(ListView):
 #     model = Character
 #     template_name = 'characters_page.html'
@@ -108,6 +114,11 @@ def characters_view(request):
 def chapters_view(request):
     chapters = Chapter.objects.all()
     return render(request, 'chapters_page.html', {'chapters': chapters})
+
+@login_required
+def scratchpad_view(request):
+    scratchpads = ScratchPad.objects.all()
+    return render(request, 'scratchpads_page.html', {'scratchpads': scratchpads})
 
 @login_required
 def moves_view(request):
@@ -152,6 +163,14 @@ def chapter_detail(request, pk):
         return render(request, 'chapter_detail.html', {'chapter': chapter,})
     except chapter.DoesNotExist:
         raise Http404('Chapter not found')
+
+@login_required
+def scratchpad_detail(request, pk):
+    try:
+        scratchpad = ScratchPad.objects.get(pk=pk)
+        return render(request, 'scratchpad_detail.html', {'scratchpad': scratchpad,})
+    except scratchpad.DoesNotExist:
+        raise Http404('scratchpad not found')
 
 @login_required
 def outfit_detail(request, pk):
@@ -222,6 +241,13 @@ def delete(request, item, pk):
             move.delete()
             note = 'Timeline with event "{}..." deleted.'.format(x[:50])
             return render(request, 'timelines_page.html', {'note': note, 'timelines': timelines,})
+        elif item == 'scratchpad':
+            scratchpads = ScratchPad.objects.all()
+            scratchpad = ScratchPad.objects.get(pk=pk)
+            x = scratchpad.title
+            scratchpad.delete()
+            note = 'Scratch Pad with name "{}" deleted.'.format(x)
+            return render(request, 'scratchpads_page.html', {'note': note, 'scratchpads': scratchpads,})
     except:
         note = 'Not found'
     return render(request, 'edit_all.html', {'note': note,})
@@ -234,6 +260,7 @@ def edit_all(request, item, pk):
     outfit = None
     timeline = None
     move = None
+    scratchpad = None
     note = 'Initial Data did not change'
     try:
         if item == 'char':
@@ -261,16 +288,21 @@ def edit_all(request, item, pk):
             form = TimelineAddForm(instance=timeline)
             if request.method == 'POST':
                     filled_form = TimelineAddForm(request.POST, instance=timeline)
+        elif item == 'scratchpad':
+            scratchpad = ScratchPad.objects.get(pk=pk)
+            form = ScratchPadAddForm(instance=scratchpad)
+            if request.method == 'POST':
+                    filled_form = ScratchPadAddForm(request.POST, instance=scratchpad)
         if request.method == 'POST':
             if filled_form.is_valid():
                 filled_form.save()
                 form = filled_form
                 note = 'Updated'
-                return render(request, 'edit_all.html', {'form': form, 'char': char, 'move':move, 'sight':sight, 'outfit':outfit, 'chapter':chapter, 'timeline':timeline, 'note': note})
+                return render(request, 'edit_all.html', {'form': form, 'char': char, 'move':move, 'sight':sight, 'outfit':outfit, 'chapter':chapter, 'timeline':timeline, 'scratchpad': scratchpad, 'note': note})
     except:
         note = 'Not found'
     note = 'Here is the data...'
-    return render(request, 'edit_all.html', {'form': form, 'char': char, 'move':move, 'sight':sight, 'outfit':outfit, 'chapter':chapter, 'timeline':timeline, 'note': note})
+    return render(request, 'edit_all.html', {'form': form, 'char': char, 'move':move, 'sight':sight, 'outfit':outfit, 'chapter':chapter, 'timeline':timeline, 'scratchpad': scratchpad, 'note': note})
 
 @login_required
 def search(request, item):
@@ -318,6 +350,13 @@ def search(request, item):
             except:
                 note = "not found"
                 return render(request,"timelines_page.html", {'note': note})
+        elif item == 'scratchpad':
+            try:
+                spads = ScratchPad.objects.filter(title__icontains=srh)
+                return render(request,"scratchpads_page.html", {"spads": spads,})
+            except:
+                note = "not found"
+                return render(request,"scratchpads_page.html", {'note': note})
     else:
         p = 'its a post request'
         return render(request, 'home.html', {'p': p})

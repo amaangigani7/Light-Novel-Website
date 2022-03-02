@@ -1,6 +1,6 @@
 import datetime
 from django import forms
-from .models import Character, Move, Chapter, Outfit, Sight, Timeline
+from .models import Character, Move, Chapter, Outfit, Sight, Timeline, ScratchPad
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from lightnovel import settings
@@ -50,3 +50,8 @@ class TimelineAddForm(forms.ModelForm):
         widgets = {
             'date_field': DateInput(),
         }
+
+class ScratchPadAddForm(forms.ModelForm):
+    class Meta:
+        model = ScratchPad
+        fields = ('title', 'content')

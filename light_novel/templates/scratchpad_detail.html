@@ -1,0 +1,7 @@
+{% extends "light_novel/templates/base.html" %}
+{% block content %}
+  <h1>Scratch Pad Detail Page</h1>
+    <a href="{% url 'light_novel:edit_all' item='scratchpad' pk=scratchpad.pk %}">Edit</a>
+    <p>{{ scratchpad.title }}</p>
+    <p>{{ scratchpad.content|linebreaks }}</p>
+{% endblock %}

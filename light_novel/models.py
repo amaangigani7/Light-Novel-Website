@@ -161,3 +161,13 @@ class Timeline(models.Model):
 
     class Meta:
         ordering = ['date_field']
+
+class ScratchPad(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse("light_novel:scratchpad_add", args={})
+
+    def __str__(self):
+        return self.title
