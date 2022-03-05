@@ -27,7 +27,7 @@ class MoveAddForm(forms.ModelForm):
 class ChapterAddForm(forms.ModelForm):
     class Meta:
         model = Chapter
-        fields = ('name', 'content')
+        fields = ('number', 'name', 'content')
 
 class OutfitAddForm(forms.ModelForm):
     class Meta:

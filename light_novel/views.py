@@ -262,35 +262,48 @@ def edit_all(request, item, pk):
     move = None
     scratchpad = None
     note = 'Initial Data did not change'
+    redirect_file = ''
     try:
         if item == 'char':
             char = Character.objects.get(pk=pk)
             form = CharacterAddForm(instance=char)
+            redirect_file = 'char_detail.html'
             if request.method == 'GET':
                 filled_form = CharacterAddForm(request.GET, instance=char)
         elif item == 'move':
             move = Move.objects.get(pk=pk)
             form = MoveAddForm(instance=move)
+            redirect_file = 'move_detail.html'
             if request.method == 'POST':
                     filled_form = MoveAddForm(request.POST, instance=move)
+        elif item == 'chapter':
+            chapter = Chapter.objects.get(pk=pk)
+            form = ChapterAddForm(instance=chapter)
+            redirect_file = 'chapter_detail.html'
+            if request.method == 'POST':
+                    filled_form = ChapterAddForm(request.POST, instance=chapter)
         elif item == 'sight':
             sight = Sight.objects.get(pk=pk)
             form = SightAddForm(instance=sight)
+            redirect_file = 'sight_detail.html'
             if request.method == 'POST':
                     filled_form = SightAddForm(request.POST, instance=sight)
         elif item == 'outfit':
             outfit = Outfit.objects.get(pk=pk)
             form = OutfitAddForm(instance=outfit)
+            redirect_file = 'outfit_detail.html'
             if request.method == 'POST':
                     filled_form = OutfitAddForm(request.POST, instance=outfit)
         elif item == 'timeline':
             timeline = Timeline.objects.get(pk=pk)
             form = TimelineAddForm(instance=timeline)
+            redirect_file = 'timeline_detail.html'
             if request.method == 'POST':
                     filled_form = TimelineAddForm(request.POST, instance=timeline)
         elif item == 'scratchpad':
             scratchpad = ScratchPad.objects.get(pk=pk)
             form = ScratchPadAddForm(instance=scratchpad)
+            redirect_file = 'scratchpad_detail.html'
             if request.method == 'POST':
                     filled_form = ScratchPadAddForm(request.POST, instance=scratchpad)
         if request.method == 'POST':
@@ -298,7 +311,7 @@ def edit_all(request, item, pk):
                 filled_form.save()
                 form = filled_form
                 note = 'Updated'
-                return render(request, 'edit_all.html', {'form': form, 'char': char, 'move':move, 'sight':sight, 'outfit':outfit, 'chapter':chapter, 'timeline':timeline, 'scratchpad': scratchpad, 'note': note})
+                return render(request, redirect_file, {'form': form, 'char': char, 'move':move, 'sight':sight, 'outfit':outfit, 'chapter':chapter, 'timeline':timeline, 'scratchpad': scratchpad, 'note': note})
     except:
         note = 'Not found'
     note = 'Here is the data...'

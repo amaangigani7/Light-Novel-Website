@@ -134,6 +134,7 @@ class Move(models.Model):
 
 
 class Chapter(models.Model):
+    number = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=300)
     content = models.TextField()
 
@@ -144,10 +145,10 @@ class Chapter(models.Model):
         return len(content)
 
     def __str__(self):
-        return self.name
+        return self.number + ' ' + self.name
 
     class Meta:
-        ordering = ['name']
+        ordering = ['number']
 
 class Timeline(models.Model):
     date_field = models.DateField(null=True, blank=True)

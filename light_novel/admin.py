@@ -12,7 +12,7 @@ class MoveAdmin(admin.ModelAdmin):
 
 @admin.register(Chapter)
 class ChapterAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ["number", "name"]
 
 @admin.register(Timeline)
 class TimelineAdmin(admin.ModelAdmin):
